@@ -13,7 +13,7 @@
                 <v-form fast-fail @submit.prevent>
                     <v-text-field v-model="model.nome" label="Nome"></v-text-field>
                     <v-text-field v-model="model.email" label="Email"></v-text-field>
-                    <v-text-field v-model="model.telefone" label="Telefone"></v-text-field>
+                    <v-text-field v-model="model.telefone" :value="model.telefone" label="Telefone" type="tel"></v-text-field>
                     <v-text-field v-model="model.datanascimento" label="Data de nascimento" type="date"></v-text-field>
                     <v-file-input label="Selecione uma foto" v-on:input.native="onFileChange"></v-file-input>
                     <div id="preview">
@@ -56,10 +56,23 @@ export default {
                     alert(response.data.mensagem)
                 }
                 else {
+                    /*
+                    const pessoaId = response.data.pessoaId
+
+                    var formData = new FormData()      
+                    formData.append("arquivo", this.model.arquivo)
+                    await this.$axios.post(`/pessoas/upload/${pessoaId}`, formData, {
+                        headers: {
+                        'content-Type': 'multipart/form-data'
+                        }
+                    }) */                    
+
                     this.redirect()
                 }
             }
-            catch (error) { alert(error) }
+            catch (error) { 
+                alert(error) 
+            }
         },
         redirect() {
             this.$router.push({ name: 'pessoas' })

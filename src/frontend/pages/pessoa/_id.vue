@@ -32,18 +32,23 @@ export default {
             datanascimento: null,
             telefone: '',
             arquivo: null
-        },        
+        },
     }),
     methods: {
         async submit() {
             try {
-                await this.$axios({
+                const response = await this.$axios({
                     method: "PUT",
                     url: `/pessoas/${this.model.id}`,
                     data: this.model,
                 })
 
-                this.$router.push({ name: 'pessoas' })
+                if ('mensagem' in response.data) {
+                    alert(response.data.mensagem)                    
+                }
+                else {
+                    this.$router.push({ name: 'pessoas' })
+                }                
             }
             catch (error) {
                 console.log(error)
